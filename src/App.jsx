@@ -147,7 +147,7 @@ export default function App() {
               <SectionHeader
                 eyebrow="Wings Arena Adult Hockey League"
                 title="WAAHL"
-                subtitle="Where community meets competition — and every game ends with a smile."
+                subtitle="Where community meets competition — and every game ends with a handshake."
               />
 
               <div className="heroInfoChips">
