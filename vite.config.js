@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  base: "/waahl_webpage_embed/",
   server: {
     proxy: {
       "/api/ezleagues": {

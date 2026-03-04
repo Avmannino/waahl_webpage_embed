@@ -23,6 +23,12 @@ import {
 
 import { fetchWaahlLeagueData } from "./utils/fetchWaahlLeagueData";
 
+const AB_REGISTRATION_URL =
+  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4013044";
+
+const CD_REGISTRATION_URL =
+  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4013045";
+
 function formatMoneyNoCents(n) {
   return n.toLocaleString(undefined, {
     style: "currency",
@@ -40,6 +46,7 @@ export default function App() {
   });
   const [loadingLeagueData, setLoadingLeagueData] = useState(true);
   const [leagueError, setLeagueError] = useState("");
+  const [isGuidelinesOpen, setIsGuidelinesOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -74,6 +81,23 @@ export default function App() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isGuidelinesOpen) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setIsGuidelinesOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isGuidelinesOpen]);
 
   const heroSlides = useMemo(
     () => [
@@ -127,13 +151,21 @@ export default function App() {
               />
 
               <div className="heroInfoChips">
+                <button
+                  type="button"
+                  className="heroChip heroChipButton"
+                  onClick={() => setIsGuidelinesOpen(true)}
+                  aria-haspopup="dialog"
+                  aria-expanded={isGuidelinesOpen}
+                >
+                  <span className="heroChipLabel">League Info</span>
+                  <span className="heroChipValue">WAAHL Guidelines &amp; Format</span>
+                  <span className="heroChipHint">Click to view rules</span>
+                </button>
+
                 <div className="heroChip">
-                  <span className="heroChipLabel">Current Season</span>
-                  <span className="heroChipValue">Standings & Schedule</span>
-                </div>
-                <div className="heroChip">
-                  <span className="heroChipLabel">Spring Registration</span>
-                  <span className="heroChipValue">A/B + C/D Leagues</span>
+                  <span className="heroChipLabel">Spring Registration is LIVE!</span>
+                  <span className="heroChipValue">Scroll Down For More</span>
                 </div>
               </div>
             </div>
@@ -201,11 +233,11 @@ export default function App() {
             <div className="promoGrid">
               <div className="promoCard">
                 <div className="promoTop">
-                  <p className="promoBadge">WAAHL • Spring 2026</p>
+                  <p className="promoBadge">WAAHL • Spring 2026 Registration</p>
                   <h3>Where community meets competition</h3>
                   <p>
                     Join the next WAAHL season at Wings Arena. Register as an individual
-                    free agent or submit a full team entry for Spring 2026.
+                    free agent or submit a full team entry.
                   </p>
                 </div>
 
@@ -231,10 +263,9 @@ export default function App() {
               {/* Right column supporting info */}
               <div className="qrPanel">
                 <div className="qrPanelHeader">
-                  <h3>Spring Season Registration</h3>
+                  <h3>Skill Levels</h3>
                   <p>
-                    Choose the correct division registration card below to register for the
-                    upcoming WAAHL Spring 2026 season.
+                    We welcome players of all abilities & skill-levels
                   </p>
                 </div>
 
@@ -242,14 +273,14 @@ export default function App() {
                   <div className="registrationNoteCard">
                     <p className="registrationNoteTitle">A/B League</p>
                     <p className="registrationNoteText">
-                      Competitive division for higher-level adult players and teams.
+                      Competitive division for higher-level, experienced players and teams.
                     </p>
                   </div>
 
                   <div className="registrationNoteCard">
                     <p className="registrationNoteTitle">C/D League</p>
                     <p className="registrationNoteText">
-                      Great fit for recreational / developing players seeking more casual, yet still competitive matchups.
+                      Great fit for recreational / developing players seeking more casual, yet still competitive play.
                     </p>
                   </div>
                 </div>
@@ -259,21 +290,37 @@ export default function App() {
             {/* QR section moved BELOW the two spring cards */}
             <div className="springTopRegistrationCard">
               <div className="springTopRegistrationHead">
-                <h3>Register by Division</h3>
-                <p>Scan the correct QR code below for your league registration.</p>
+                <h3>Spring 2026 Registration</h3>
+                <p>Scan or click below to register.</p>
               </div>
 
               <div className="springRegistrationCardsRow">
                 <div className="qrCard">
-                  <p className="qrTitle">A/B League Registration</p>
+                  <p className="qrTitle">A/B League</p>
                   <img src={qrAB} alt="A/B League registration QR code" className="qrImg" />
-                  <p className="qrCaption">Scan to register for A/B League</p>
+                  <p className="qrCaption">Scan or click below to register for A/B League</p>
+                  <a
+                    href={AB_REGISTRATION_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="qrRegisterLink"
+                  >
+                    REGISTER HERE
+                  </a>
                 </div>
 
                 <div className="qrCard">
-                  <p className="qrTitle">C/D League Registration</p>
+                  <p className="qrTitle">C/D League</p>
                   <img src={qrCD} alt="C/D League registration QR code" className="qrImg" />
-                  <p className="qrCaption">Scan to register for C/D League</p>
+                  <p className="qrCaption">Scan or click below to register for C/D League</p>
+                  <a
+                    href={CD_REGISTRATION_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="qrRegisterLink"
+                  >
+                    REGISTER HERE
+                  </a>
                 </div>
               </div>
             </div>
@@ -288,27 +335,173 @@ export default function App() {
                 </p>
               </div>
             </div>
-
-            {/* <div className="flyerPreviewCard">
-              <div className="flyerPreviewText">
-                <h3>Spring Flyer Preview</h3>
-                <p>
-                  Promotional artwork for the Spring 2026 WAAHL season. This page focuses on
-                  current season standings/schedule (from EZLeagues) and registration QR access
-                  for the upcoming season.
-                </p>
-              </div>
-              <div className="flyerPreviewImageWrap">
-                <img
-                  src={springFlyer}
-                  alt="WAAHL Spring 2026 promotional flyer"
-                  className="flyerPreviewImage"
-                />
-              </div>
-            </div> */}
           </div>
         </section>
       </main>
+
+      {/* Guidelines Modal */}
+      {isGuidelinesOpen && (
+        <div
+          className="guidelinesModalOverlay"
+          onClick={() => setIsGuidelinesOpen(false)}
+          role="presentation"
+        >
+          <div
+            className="guidelinesModal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="waahl-guidelines-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="guidelinesModalHeader">
+              <div>
+                <p className="guidelinesModalEyebrow">WAAHL</p>
+                <h2 id="waahl-guidelines-title">Guidelines &amp; Format</h2>
+              </div>
+
+              <button
+                type="button"
+                className="guidelinesCloseBtn"
+                onClick={() => setIsGuidelinesOpen(false)}
+                aria-label="Close guidelines modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="guidelinesModalBody">
+              <div className="guidelineSection">
+                <h3>Game Format</h3>
+                <ul>
+                  <li>3 x 15-minute running-time periods</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Mercy Rule</h3>
+                <ul>
+                  <li>6+ goal lead → running time until reduced to 4 goals or fewer.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Penalties</h3>
+                <ul>
+                  <li>All penalties served as stop time.</li>
+                  <li>4 penalties in one game = ejection (not a misconduct).</li>
+                  <li>High stick causing bleeding = automatic double minor.</li>
+                  <li>Intentional high stick = automatic match penalty.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Rosters &amp; Eligibility</h3>
+                <ul>
+                  <li>Team Goalies play free</li>
+                  <li>Roster lock: halfway through season</li>
+                  <li>No new players after roster lock.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Player Participation</h3>
+                <ul>
+                  <li>Players can join multiple teams.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Equipment</h3>
+                <ul>
+                  <li>Helmets required.</li>
+                  <li>Full face shields strongly recommended. Visor allowed at player discretion</li>
+                  <li>Goalie gear must meet adult standards.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Tie Games</h3>
+                <ul>
+                  <li>Regular season: 3 on 3 5 minute overtime</li>
+                  <li>Playoffs: 5-min 5v5 OT → 3-shooter shootout.</li>
+                  <li>Championships: 5-min 5v5, then 4v4, then 3v3, then 2v2, 1v1</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Roster Challenges</h3>
+                <ul>
+                  <li>Opponents may challenge rosters anytime.</li>
+                  <li>Players must show valid photo ID.</li>
+                  <li>Violations: 5-min major + ejection, captain suspended 1 game.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Code of Conduct</h3>
+                <ul>
+                  <li>Zero tolerance for harassment, discrimination, or abuse.</li>
+                  <li>Violations = suspension or league removal.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Discipline &amp; Misconduct</h3>
+                <p className="guidelineSubhead">Game Misconducts</p>
+                <ul>
+                  <li>1st: 2-game suspension</li>
+                  <li>2nd: 4-game suspension</li>
+                  <li>3rd: Season &amp; playoff suspension</li>
+                </ul>
+
+                <p className="guidelineSubhead">Match Penalties</p>
+                <ul>
+                  <li>1st: 3-game suspension + $100 fine</li>
+                  <li>2nd: Season removal + $200 team fine</li>
+                  <li>Attempt to injure: permanent removal</li>
+                  <li>2 total removals = permanent league ban.</li>
+                  <li>Multiple infractions may lead to permanent removal.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Penalty Minute Limits</h3>
+                <ul>
+                  <li>30 PIM = 2-game suspension</li>
+                  <li>40 PIM = additional 2 games</li>
+                  <li>45+ PIM = suspended for season/playoffs</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Ringer Rule</h3>
+                <ul>
+                  <li>5-goal cap per player; additional goals = 2-min minor per infraction.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Referee Authority</h3>
+                <ul>
+                  <li>Certified CIHRA officials.</li>
+                  <li>Referee decisions are final.</li>
+                  <li>Ref abuse = immediate discipline.</li>
+                </ul>
+              </div>
+
+              <div className="guidelineSection">
+                <h3>Minimum Roster to Play</h3>
+                <ul>
+                  <li>Game can start with 3 players.</li>
+                  <li>
+                    Teams may play without a goalie, but 6th skater cannot cover puck or act as goalie.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

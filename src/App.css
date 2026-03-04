@@ -145,6 +145,32 @@ a:hover {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
+.heroChipButton {
+  appearance: none;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.heroChipButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(235, 0, 57, 0.35);
+  background: rgba(12, 24, 40, 0.75);
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(235, 0, 57, 0.15) inset;
+}
+
+.heroChipButton:focus-visible {
+  outline: 2px solid rgba(156, 208, 255, 0.85);
+  outline-offset: 2px;
+}
+
 .heroChipLabel {
   font-size: 0.74rem;
   text-transform: uppercase;
@@ -160,10 +186,17 @@ a:hover {
   letter-spacing: -0.01em;
 }
 
+.heroChipHint {
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--muted-2);
+}
+
 .heroCarouselCol {
   justify-self: end;
   width: 100%;
   max-width: 520px;
+  transform: translateX(75px);
 }
 
 /* HERO CAROUSEL */
@@ -180,7 +213,7 @@ a:hover {
   position: relative;
   overflow: hidden;
   border-radius: 18px;
-  min-height: 320px;
+  min-height: 340px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: #0a1625;
 }
@@ -224,6 +257,7 @@ a:hover {
   from {
     transform: translateX(var(--from, 100%));
   }
+
   to {
     transform: translateX(0%);
   }
@@ -233,6 +267,7 @@ a:hover {
   from {
     transform: translateX(0%);
   }
+
   to {
     transform: translateX(-100%);
   }
@@ -242,6 +277,7 @@ a:hover {
   from {
     transform: translateX(0%);
   }
+
   to {
     transform: translateX(100%);
   }
@@ -451,7 +487,7 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 3;
-  background: #0f1f31; /* solid background */
+  background: #0f1f31;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -471,7 +507,7 @@ a:hover {
 }
 
 .statsTable th {
-  color: #d6e9ff;
+  color: #ffffff;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -485,19 +521,18 @@ a:hover {
 .teamCell {
   text-align: left !important;
   font-weight: 600;
-  color: #f1f7ff;
+  color: #ffffff;
 }
 
-/* Center matchup text for schedule table */
 .matchupCell {
   text-align: center !important;
   font-weight: 600;
-  color: #f1f7ff;
+  color: #ffffff;
 }
 
 .ptsCell {
   font-weight: 800;
-  color: #ffd4de;
+  color: #f87171;
 }
 
 .vs {
@@ -577,7 +612,7 @@ a:hover {
 
 .springNeedHelpCard {
   width: 100%;
-  max-width: 700px; /* centered, not too wide */
+  max-width: 700px;
   text-align: center;
 }
 
@@ -645,11 +680,11 @@ a:hover {
 }
 
 .priceValue {
-  margin: 6px 0 2px;
-  font-size: 1.85rem;
+  margin: -6px 0 2px;
+  font-size: 2.25rem;
   font-weight: 900;
   letter-spacing: -0.03em;
-  color: #ffe3ea;
+  color: #ffffff;
 }
 
 .priceNote {
@@ -672,17 +707,17 @@ a:hover {
   margin: 0 0 10px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: #f3f8ff;
+  color: #ffffff;
 }
 
 .qrImg {
-  width: min(100%, 210px);
+  width: min(100%, 140px);
   aspect-ratio: 1 / 1;
   object-fit: contain;
-  border-radius: 10px;
-  background: #fff;
+  border-radius: 8px;
+  background: #381328;
   padding: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #08121e;
 }
 
 .qrCaption {
@@ -691,9 +726,35 @@ a:hover {
   color: var(--muted);
 }
 
+.qrRegisterLink {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 132px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(235, 0, 57, 0.35);
+  background: rgba(235, 0, 57, 0.12);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.qrRegisterLink:hover {
+  text-decoration: none;
+  background: rgba(235, 0, 57, 0.2);
+  border-color: rgba(235, 0, 57, 0.48);
+  transform: translateY(-1px);
+}
+
 /* RIGHT COLUMN SUPPORT PANEL */
 .qrPanel {
   padding: 18px;
+  margin-top: 5px;
 }
 
 .qrPanelHeader h3 {
@@ -724,7 +785,7 @@ a:hover {
 .registrationNoteTitle {
   margin: 0;
   font-weight: 800;
-  color: #eef6ff;
+  color: #ffffff;
   letter-spacing: -0.01em;
 }
 
@@ -732,6 +793,118 @@ a:hover {
   margin: 6px 0 0;
   color: var(--muted);
   line-height: 1.45;
+  font-size: 0.9rem;
+}
+
+/* GUIDELINES MODAL */
+.guidelinesModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(4, 8, 14, 0.72);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.guidelinesModal {
+  width: min(980px, 100%);
+  max-height: min(88vh, 920px);
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(10, 21, 35, 0.98), rgba(8, 18, 30, 0.98));
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.48),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+.guidelinesModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(235, 0, 57, 0.12), transparent 45%),
+    rgba(255, 255, 255, 0.01);
+}
+
+.guidelinesModalEyebrow {
+  margin: 0 0 4px;
+  color: #b8d8f8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.guidelinesModalHeader h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+
+.guidelinesCloseBtn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: grid;
+  place-items: center;
+  transition: background 120ms ease, transform 120ms ease, border-color 120ms ease;
+}
+
+.guidelinesCloseBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.guidelinesModalBody {
+  padding: 16px 18px 18px;
+  max-height: calc(88vh - 82px);
+  overflow: auto;
+  display: grid;
+  gap: 12px;
+}
+
+.guidelineSection {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.guidelineSection h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.guidelineSection ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.guidelineSection li+li {
+  margin-top: 4px;
+}
+
+.guidelineSubhead {
+  margin: 10px 0 6px;
+  color: #d6e9ff;
+  font-weight: 700;
   font-size: 0.9rem;
 }
 
@@ -787,21 +960,39 @@ a:hover {
   .heroCarouselCol {
     justify-self: stretch;
     max-width: 100%;
-  }
-}
-
-@media (max-width: 900px) {
-  .standingsGrid {
-    grid-template-columns: 1fr;
+    transform: none;
   }
 
   .heroCarouselViewport {
     min-height: 300px;
   }
 
-  .heroSlideContent {
-    min-height: 300px;
-    padding: 20px;
+  .tableCardHead h3 {
+    text-align: center;
+  }
+
+  .statsTable th,
+  .statsTable td {
+    padding: 9px 10px;
+    font-size: 0.88rem;
+  }
+
+  .statsTable th {
+    font-size: 0.74rem;
+  }
+
+  .tableWrapScheduleLimited {
+    max-height: 340px;
+  }
+
+  .guidelinesModal {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .standingsGrid {
+    grid-template-columns: 1fr;
   }
 
   .heroSubtitle {
@@ -817,52 +1008,213 @@ a:hover {
     grid-template-columns: 1fr;
   }
 
-  .tableWrapScheduleLimited {
-    max-height: 340px;
+  .promoGrid {
+    gap: 14px;
   }
 }
 
 @media (max-width: 640px) {
   .container {
-    width: min(var(--max), calc(100% - 20px));
+    width: min(var(--max), calc(100% - 16px));
   }
 
+  /* MOBILE HERO: use carousel as hero background */
   .heroShell {
-    padding-top: 14px;
+    padding-top: 10px;
+    padding-bottom: 12px;
+    min-height: 500px;
+    overflow: hidden;
+  }
+
+  .heroShellBackdrop {
+    display: none;
+  }
+
+  .heroShellInner {
+    min-height: 500px;
+  }
+
+  .heroSplit {
+    position: relative;
+    min-height: 500px;
+    display: block;
+  }
+
+  .heroCarouselCol {
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    width: auto;
+    transform: none;
+    z-index: 0;
+    justify-self: stretch;
+    pointer-events: none;
+    /* background only on mobile */
   }
 
   .heroCarousel {
-    padding: 10px;
-    border-radius: 18px;
+    height: 100%;
+    padding: 0;
+    border-radius: 20px;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .heroCarouselViewport {
-    min-height: 260px;
-    border-radius: 14px;
+    min-height: 500px;
+    height: 100%;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .heroSlideContent {
-    min-height: 260px;
-    padding: 16px;
+  .heroCarouselControls {
+    display: none;
   }
 
-  .heroTitle {
+  .heroContentLeft {
+    position: relative;
+    z-index: 2;
+    padding: 26px 14px 20px;
+    /* more natural vertical spacing */
+    min-height: 500px;
+    display: grid;
+    align-content: center;
+    /* centered vertically (better balance) */
+  }
+
+  .heroContentLeft .sectionHeader {
+    text-align: center;
+    justify-items: center;
+    display: grid;
+    margin-bottom: 12px;
+  }
+
+  .heroContentLeft .sectionTitle {
+    font-size: clamp(1.9rem, 10vw, 2.7rem);
     line-height: 1.02;
   }
 
-  .heroSubtitle {
-    margin-top: 10px;
+  .heroContentLeft .sectionSubtitle {
+    max-width: 34ch;
     font-size: 0.95rem;
   }
 
-  .heroArrow {
-    width: 38px;
-    height: 38px;
-    font-size: 1.3rem;
+  .heroInfoChips {
+    gap: 10px;
+    margin-top: 10px;
   }
 
+  .heroChip,
+  .heroChipButton {
+    text-align: center;
+    justify-items: center;
+    padding: 10px 12px;
+    background: rgba(8, 18, 31, 0.62);
+  }
+
+  /* Mobile table cards + centered headers */
+  .tableCardHead {
+    padding: 12px 12px;
+  }
+
+  .tableCardHead h3 {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  .tableCard {
+    border-radius: 16px;
+  }
+
+  /* Add more vertical space between standings + schedule tables */
+  .scheduleWrap {
+    margin-top: 18px;
+  }
+
+  /* Tighter standings table spacing */
+  .statsTable {
+    min-width: 560px;
+  }
+
+  .statsTable th,
+  .statsTable td {
+    padding: 7px 6px;
+    font-size: 0.78rem;
+  }
+
+  .statsTable th {
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Standings-specific tighter spacing */
+  .standingsGrid .statsTable {
+    min-width: 520px;
+  }
+
+  .standingsGrid .statsTable th:first-child,
+  .standingsGrid .statsTable td:first-child {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .standingsGrid .statsTable th:nth-child(2),
+  .standingsGrid .statsTable td:nth-child(2) {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .teamCell {
+    font-weight: 600;
+  }
+
+  /* Mobile-friendly schedule table */
+  .scheduleWrap .statsTable {
+    min-width: 620px;
+    /* lower than desktop while still usable */
+  }
+
+  .scheduleWrap .statsTable th,
+  .scheduleWrap .statsTable td {
+    padding: 7px 6px;
+    font-size: 0.76rem;
+  }
+
+  .scheduleWrap .statsTable th {
+    font-size: 0.64rem;
+  }
+
+  .scheduleWrap .matchupCell {
+    white-space: normal;
+    min-width: 170px;
+    line-height: 1.2;
+  }
+
+  .scheduleWrap td:last-child,
+  .scheduleWrap th:last-child {
+    white-space: normal;
+    min-width: 110px;
+    line-height: 1.2;
+  }
+
+  .tableWrapScheduleLimited {
+    max-height: 320px;
+  }
+
+  /* Promo cards mobile centering */
   .pricingRow {
     grid-template-columns: 1fr;
+    gap: 14px;
+    /* a little more space between pricing cards */
+    margin-top: 18px;
+    /* more space from promo text */
+  }
+
+  .promoGrid {
+    gap: 18px;
+    /* more vertical space between Spring Registration card and Skill Levels card */
   }
 
   .promoCard,
@@ -871,11 +1223,182 @@ a:hover {
     padding: 14px;
   }
 
-  .section {
-    padding: 24px 0;
+  .promoTop {
+    text-align: center;
   }
 
-  .tableWrapScheduleLimited {
-    max-height: 320px;
+  .promoBadge {
+    margin-inline: auto;
+  }
+
+  .priceCard {
+    text-align: center;
+    justify-items: center;
+    display: grid;
+  }
+
+  .priceLabel {
+    text-align: center;
+    min-height: auto;
+  }
+
+  .priceValue {
+    margin: 0 0 2px;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .priceNote {
+    text-align: center;
+  }
+
+  /* Center Skill Levels panel content on mobile */
+  .qrPanel {
+    margin-top: 6px;
+    /* extra breathing room from pricing card column above */
+  }
+
+  .qrPanelHeader {
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .registrationNotes {
+    text-align: center;
+  }
+
+  .registrationNoteCard {
+    text-align: center;
+  }
+
+  /* QR cards / buttons mobile */
+  .springRegistrationCardsRow {
+    gap: 10px;
+  }
+
+  .qrImg {
+    width: min(100%, 132px);
+  }
+
+  .qrRegisterLink {
+    width: 100%;
+    min-width: 0;
+    max-width: 220px;
+  }
+
+  .section {
+    padding: 22px 0;
+  }
+
+  .guidelinesModalOverlay {
+    padding: 10px;
+  }
+
+  .guidelinesModalHeader {
+    padding: 14px;
+  }
+
+  .guidelinesModalBody {
+    padding: 12px 14px 14px;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .heroShell,
+  .heroShellInner,
+  .heroSplit {
+    min-height: 480px;
+  }
+
+  .heroCarouselViewport {
+    min-height: 480px;
+  }
+
+  .heroContentLeft {
+    min-height: 500px;
+    padding: 22px 12px 18px;
+    align-content: center;
+    /* keep balanced on smaller phones */
+  }
+
+  .heroContentLeft .sectionHeader {
+    margin-bottom: 20px;
+  }
+
+  .heroInfoChips {
+    margin-top: 18px;
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+    /* centers each chip in the grid */
+    align-items: start;
+    width: 100%;
+  }
+
+  .heroChip,
+  .heroChipButton {
+    display: flex;
+    flex-direction: column;
+    /* stack label/value/hint */
+    align-items: center;
+    /* center content horizontally */
+    justify-content: center;
+    /* center content vertically */
+    text-align: center;
+    padding: 10px 12px;
+    background: rgba(8, 18, 31, 0.62);
+    width: 80%;
+    max-width: 300px;
+    /* optional but helps on small phones */
+    margin-inline: auto;
+    /* hard-centers even if parent styles conflict */
+  }
+
+  .heroInfoChips {
+    margin-top: 18px;
+  }
+
+  .heroContentLeft .sectionSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .heroChipValue {
+    font-size: 1.0rem;
+  }
+
+  .sectionEyebrow {
+    margin: 0px 0 25px;
+    color: #b8d8f8;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .statsTable th,
+  .statsTable td {
+    padding: 6px 5px;
+  }
+
+  .scheduleWrap .statsTable {
+    min-width: 600px;
+  }
+
+  .priceValue {
+    font-size: 1.85rem;
+  }
+
+  /* Maintain spacing tweaks on smaller phones */
+  .scheduleWrap {
+    margin-top: 16px;
+  }
+
+  .promoGrid {
+    gap: 16px;
+  }
+
+  .qrPanel {
+    margin-top: 4px;
   }
 }
