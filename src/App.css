@@ -519,7 +519,7 @@ a:hover {
 }
 
 .teamCell {
-  text-align: left !important;
+  text-align: center !important;
   font-weight: 600;
   color: #ffffff;
 }
@@ -897,7 +897,7 @@ a:hover {
   line-height: 1.45;
 }
 
-.guidelineSection li+li {
+.guidelineSection li + li {
   margin-top: 4px;
 }
 
@@ -940,6 +940,14 @@ a:hover {
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.scheduleDateMobile {
+  display: none;
+}
+
+.scheduleDateDesktop {
+  display: inline;
 }
 
 /* RESPONSIVE */
@@ -1048,8 +1056,7 @@ a:hover {
     transform: none;
     z-index: 0;
     justify-self: stretch;
-    pointer-events: none;
-    /* background only on mobile */
+    pointer-events: none; /* background only on mobile */
   }
 
   .heroCarousel {
@@ -1076,12 +1083,10 @@ a:hover {
   .heroContentLeft {
     position: relative;
     z-index: 2;
-    padding: 26px 14px 20px;
-    /* more natural vertical spacing */
+    padding: 26px 14px 20px; /* more natural vertical spacing */
     min-height: 500px;
     display: grid;
-    align-content: center;
-    /* centered vertically (better balance) */
+    align-content: center; /* centered vertically (better balance) */
   }
 
   .heroContentLeft .sectionHeader {
@@ -1092,7 +1097,7 @@ a:hover {
   }
 
   .heroContentLeft .sectionTitle {
-    font-size: clamp(1.9rem, 10vw, 2.7rem);
+    font-size: clamp(3.0rem, 10vw, 2.7rem);
     line-height: 1.02;
   }
 
@@ -1112,6 +1117,16 @@ a:hover {
     justify-items: center;
     padding: 10px 12px;
     background: rgba(8, 18, 31, 0.62);
+  }
+
+  /* Add a little extra edge breathing room for cards on mobile */
+  .tableCard,
+  .promoCard,
+  .qrPanel,
+  .springTopRegistrationCard,
+  .springNeedHelpCard {
+    width: calc(100% - 10px);
+    margin-inline: auto;
   }
 
   /* Mobile table cards + centered headers */
@@ -1172,8 +1187,7 @@ a:hover {
 
   /* Mobile-friendly schedule table */
   .scheduleWrap .statsTable {
-    min-width: 620px;
-    /* lower than desktop while still usable */
+    min-width: 580px; /* reduced to tighten overall column spacing */
   }
 
   .scheduleWrap .statsTable th,
@@ -1188,14 +1202,41 @@ a:hover {
 
   .scheduleWrap .matchupCell {
     white-space: normal;
-    min-width: 170px;
+    min-width: 130px; /* reduced from 170px */
     line-height: 1.2;
+  }
+
+  /* Tighten spacing between Time and Matchup columns (mobile only) */
+  .scheduleWrap .scheduleTable th:nth-child(2),
+  .scheduleWrap .scheduleTable td:nth-child(2) {
+    padding-right: 0;
+    width: 56px;
+    min-width: 56px;
+  }
+
+  .scheduleWrap .scheduleTable th:nth-child(3),
+  .scheduleWrap .scheduleTable td:nth-child(3) {
+    padding-left: 0;
+    padding-right: 2px; /* reduce gap before Type */
+  }
+
+  /* Decrease gap between Matchup and Type columns */
+  .scheduleWrap .scheduleTable th:nth-child(4),
+  .scheduleWrap .scheduleTable td:nth-child(4) {
+    padding-left: 2px;
+    width: 52px;
+    min-width: 52px;
+  }
+
+  /* Tighten "vs" spacing inside matchup text */
+  .scheduleWrap .vs {
+    margin: 0 1px;
   }
 
   .scheduleWrap td:last-child,
   .scheduleWrap th:last-child {
     white-space: normal;
-    min-width: 110px;
+    min-width: 96px; /* reduced from 110px */
     line-height: 1.2;
   }
 
@@ -1203,18 +1244,23 @@ a:hover {
     max-height: 320px;
   }
 
+   .scheduleDateDesktop {
+    display: none;
+  }
+
+  .scheduleDateMobile {
+    display: inline;
+  }
+
   /* Promo cards mobile centering */
   .pricingRow {
     grid-template-columns: 1fr;
-    gap: 14px;
-    /* a little more space between pricing cards */
-    margin-top: 18px;
-    /* more space from promo text */
+    gap: 14px; /* a little more space between pricing cards */
+    margin-top: 18px; /* more space from promo text */
   }
 
   .promoGrid {
-    gap: 18px;
-    /* more vertical space between Spring Registration card and Skill Levels card */
+    gap: 18px; /* more vertical space between Spring Registration card and Skill Levels card */
   }
 
   .promoCard,
@@ -1254,8 +1300,7 @@ a:hover {
 
   /* Center Skill Levels panel content on mobile */
   .qrPanel {
-    margin-top: 6px;
-    /* extra breathing room from pricing card column above */
+    margin-top: 6px; /* extra breathing room from pricing card column above */
   }
 
   .qrPanelHeader {
@@ -1304,7 +1349,6 @@ a:hover {
 }
 
 @media (max-width: 420px) {
-
   .heroShell,
   .heroShellInner,
   .heroSplit {
@@ -1318,8 +1362,7 @@ a:hover {
   .heroContentLeft {
     min-height: 500px;
     padding: 22px 12px 18px;
-    align-content: center;
-    /* keep balanced on smaller phones */
+    align-content: center; /* keep balanced on smaller phones */
   }
 
   .heroContentLeft .sectionHeader {
@@ -1330,8 +1373,7 @@ a:hover {
     margin-top: 18px;
     display: grid;
     gap: 10px;
-    justify-items: center;
-    /* centers each chip in the grid */
+    justify-items: center; /* centers each chip in the grid */
     align-items: start;
     width: 100%;
   }
@@ -1339,24 +1381,15 @@ a:hover {
   .heroChip,
   .heroChipButton {
     display: flex;
-    flex-direction: column;
-    /* stack label/value/hint */
-    align-items: center;
-    /* center content horizontally */
-    justify-content: center;
-    /* center content vertically */
+    flex-direction: column; /* stack label/value/hint */
+    align-items: center; /* center content horizontally */
+    justify-content: center; /* center content vertically */
     text-align: center;
     padding: 10px 12px;
     background: rgba(8, 18, 31, 0.62);
     width: 80%;
-    max-width: 300px;
-    /* optional but helps on small phones */
-    margin-inline: auto;
-    /* hard-centers even if parent styles conflict */
-  }
-
-  .heroInfoChips {
-    margin-top: 18px;
+    max-width: 300px; /* optional but helps on small phones */
+    margin-inline: auto; /* hard-centers even if parent styles conflict */
   }
 
   .heroContentLeft .sectionSubtitle {
@@ -1364,11 +1397,11 @@ a:hover {
   }
 
   .heroChipValue {
-    font-size: 1.0rem;
+    font-size: 1rem;
   }
 
   .sectionEyebrow {
-    margin: 0px 0 25px;
+    margin: 0 0 15px;
     color: #b8d8f8;
     font-weight: 700;
     font-size: 0.85rem;
@@ -1382,7 +1415,30 @@ a:hover {
   }
 
   .scheduleWrap .statsTable {
-    min-width: 600px;
+    min-width: 560px; /* tightened further for smaller phones */
+  }
+
+  /* Keep mobile schedule columns tight on smaller phones */
+  .scheduleWrap .matchupCell {
+    min-width: 118px;
+  }
+
+  .scheduleWrap .scheduleTable th:nth-child(2),
+  .scheduleWrap .scheduleTable td:nth-child(2) {
+    width: 52px;
+    min-width: 52px;
+  }
+
+  .scheduleWrap .scheduleTable th:nth-child(4),
+  .scheduleWrap .scheduleTable td:nth-child(4) {
+    width: 48px;
+    min-width: 48px;
+    padding-left: 1px;
+  }
+
+  .scheduleWrap td:last-child,
+  .scheduleWrap th:last-child {
+    min-width: 88px;
   }
 
   .priceValue {

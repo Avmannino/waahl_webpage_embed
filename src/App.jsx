@@ -106,7 +106,7 @@ export default function App() {
         kicker: "Wings Arena Adult Hockey League",
         title: "WAAHL",
         subtitle:
-          "Where community meets competition — and every game ends with a smile.",
+          "Where community meets competition — and every game ends with a handshake.",
       },
       {
         src: hero2,
