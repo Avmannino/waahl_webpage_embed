@@ -7,7 +7,7 @@ export const seasonMeta = {
   springSeasonDates: "May–July 2026",
   registrationHeadline: "Register Now for the Spring Season! ",
   freeAgentPrice: 295,
-  fullTeamPrice: 4800,
+  fullTeamPrice: 3500,
   contactEmail: "kebanks@wingsarena.com",
 };
 
