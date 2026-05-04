@@ -1,5 +1,13 @@
 // src/utils/parseEzLeaguesPage.js
 
+const TEAM_NAME_ALIASES = {
+  "Beef Tips": "Steak Tips",
+};
+
+function normalizeTeamName(name) {
+  return TEAM_NAME_ALIASES[name] || name;
+}
+
 function cleanText(str = "") {
   return String(str)
     .replace(/\u00a0/g, " ")
@@ -201,18 +209,71 @@ function parseScheduleFromTableRows(allTables) {
 
     if (!headerRow) continue;
 
+    // Map header names to column indices for structured parsing
+    const colIdx = {
+      date:     headerRow.findIndex((c) => /^date$/i.test(c)),
+      home:     headerRow.findIndex((c) => /^home$/i.test(c)),
+      away:     headerRow.findIndex((c) => /^away$/i.test(c)),
+      time:     headerRow.findIndex((c) => /time/i.test(c)),
+      venue:    headerRow.findIndex((c) => /venue/i.test(c)),
+      gameType: headerRow.findIndex((c) => /game\s*type/i.test(c)),
+    };
+
+    const hasStructuredCols = colIdx.date !== -1 && colIdx.home !== -1 && colIdx.away !== -1;
+
     const rows = [];
     const headerIndex = tableRows.indexOf(headerRow);
 
     for (let i = headerIndex + 1; i < tableRows.length; i++) {
-      const cells = (tableRows[i] || []).filter(Boolean);
+      const cells = tableRows[i] || [];
       if (!cells.length) continue;
 
-      const rowText = cleanText(cells.join(" "));
-      if (!/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)-[A-Za-z]{3}\s+\d{1,2}\b/.test(rowText)) continue;
+      if (hasStructuredCols) {
+        // Column-index based parsing (new EZLeagues format with separate Home/Away cols)
+        const date = cleanText(cells[colIdx.date] || "");
+        if (!/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)-[A-Za-z]{3}\s+\d{1,2}\b/.test(date)) continue;
 
-      const parsed = parseScheduleLineFallback(rowText);
-      if (parsed) rows.push(parsed);
+        const home = cleanText(cells[colIdx.home] || "");
+        const away = cleanText(cells[colIdx.away] || "");
+        if (!home || !away) continue;
+
+        const timeRaw = colIdx.time !== -1 ? cleanText(cells[colIdx.time] || "") : "";
+        const venue   = colIdx.venue !== -1 ? cleanText(cells[colIdx.venue] || "") : "Wings Arena";
+        const gameType = colIdx.gameType !== -1 ? cleanText(cells[colIdx.gameType] || "") : "";
+
+        let time = "TBD";
+        let status = "Scheduled";
+        let score = "";
+
+        if (/result pending/i.test(timeRaw)) {
+          status = "Result Pending";
+        } else if (/complete/i.test(timeRaw)) {
+          const scoreMatch = timeRaw.match(/(\d+)\s*-\s*(\d+)(?:\s+OT)?/i);
+          if (scoreMatch) {
+            score = `${scoreMatch[1]} - ${scoreMatch[2]}${/OT/i.test(timeRaw) ? " OT" : ""}`;
+            status = `Complete (${score})`;
+          } else {
+            status = "Complete";
+          }
+          time = "Final";
+        } else {
+          const timeMatch = timeRaw.match(/(\d{1,2}:\d{2}\s*[AP]M)/i);
+          if (timeMatch) time = cleanText(timeMatch[1]);
+        }
+
+        rows.push({ date, time, home, away, rink: venue || "Wings Arena", gameType, status, score });
+      } else {
+        // Text-based fallback (older format where home v away appear in one cell)
+        const filteredCells = cells.filter(Boolean);
+        const dateCellIdx = filteredCells.findIndex((c) =>
+          /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)-[A-Za-z]{3}\s+\d{1,2}\b/.test(c)
+        );
+        if (dateCellIdx === -1) continue;
+
+        const rowText = cleanText(filteredCells.slice(dateCellIdx).join(" "));
+        const parsed = parseScheduleLineFallback(rowText);
+        if (parsed) rows.push(parsed);
+      }
     }
 
     if (rows.length) return rows;
@@ -342,6 +403,13 @@ export function parseEzLeaguesPageHtml(htmlString) {
   console.log("[EZ Parser] tables found:", allTables.length);
   console.log("[EZ Parser] standings rows:", standings.length, standings);
   console.log("[EZ Parser] schedule rows:", schedule.length, schedule);
+
+  standings = standings.map((r) => ({ ...r, team: normalizeTeamName(r.team) }));
+  schedule = schedule.map((r) => ({
+    ...r,
+    home: normalizeTeamName(r.home),
+    away: normalizeTeamName(r.away),
+  }));
 
   return {
     standings,

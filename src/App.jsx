@@ -117,7 +117,7 @@ export default function App() {
       },
       {
         src: hero3,
-        kicker: "Spring 2026 Registration",
+        kicker: "Summer 2026 Registration",
         title: "A/B + C/D Leagues",
         subtitle:
           "Register now for the May–July season. Individual free agents and full team entries welcome.",
@@ -164,7 +164,7 @@ export default function App() {
                 </button>
 
                 <div className="heroChip">
-                  <span className="heroChipLabel">Spring Registration is LIVE!</span>
+                  <span className="heroChipLabel">Summer Registration is LIVE!</span>
                   <span className="heroChipValue">Scroll Down For More</span>
                 </div>
               </div>
@@ -226,14 +226,14 @@ export default function App() {
               <SectionHeader
                 eyebrow={seasonMeta.springSeasonLabel}
                 title={`${seasonMeta.registrationHeadline}`}
-                subtitle="May–July 2026 season registration is now open for A/B and C/D divisions."
+                subtitle="May–July 2026 summer season registration is now open for A/B and C/D divisions."
               />
             </div>
 
             <div className="promoGrid">
               <div className="promoCard">
                 <div className="promoTop">
-                  <p className="promoBadge">WAAHL • Spring 2026 Registration</p>
+                  <p className="promoBadge">WAAHL • Summer 2026 Registration</p>
                   <h3>Where community meets competition</h3>
                   <p>
                     Join the next WAAHL season at Wings Arena. Register as an individual
@@ -290,7 +290,7 @@ export default function App() {
             {/* QR section moved BELOW the two spring cards */}
             <div className="springTopRegistrationCard">
               <div className="springTopRegistrationHead">
-                <h3>Spring 2026 Registration</h3>
+                <h3>Summer 2026 Registration</h3>
                 <p>Scan or click below to register.</p>
               </div>
 

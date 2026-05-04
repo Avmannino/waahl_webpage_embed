@@ -13,7 +13,7 @@ export default defineConfig({
         rewrite: (path) =>
           path.replace(
             /^\/api\/ezleagues/,
-            "/leagues/472793/WinterSpring-26-Wings-Arena-Adult-Hockey-League.aspx"
+            "/leagues/477108/SpringSummer-2026-Wings-Arena-Adult-Hockey-League.aspx"
           ),
       },
     },

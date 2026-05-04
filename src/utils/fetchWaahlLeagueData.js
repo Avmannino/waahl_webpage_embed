@@ -1,7 +1,7 @@
 import { parseEzLeaguesPageHtml } from "./parseEzLeaguesPage";
 
 const EZLEAGUES_URL =
-  "https://wingsarena.ezleagues.ezfacility.com/leagues/472793/WinterSpring-26-Wings-Arena-Adult-Hockey-League.aspx";
+  "https://wingsarena.ezleagues.ezfacility.com/leagues/477108/SpringSummer-2026-Wings-Arena-Adult-Hockey-League.aspx";
 
 export async function fetchWaahlLeagueData() {
   const configuredProxy = import.meta.env.VITE_EZLEAGUES_PROXY_URL?.trim();

@@ -2,10 +2,10 @@
 
 export const seasonMeta = {
   currentSeasonLabel: "Current Season",
-  currentSeasonSubLabel: "Winter 2026 (Jan-Apr)",
-  springSeasonLabel: "Spring Season 2026 (May-Jul)",
+  currentSeasonSubLabel: "Summer 2026 (May-July)",
+  springSeasonLabel: "Summer Season 2026 (May-July)",
   springSeasonDates: "May–July 2026",
-  registrationHeadline: "Register Now for the Spring Season! ",
+  registrationHeadline: "Register Now for the Summer Season!",
   freeAgentPrice: 295,
   fullTeamPrice: 3500,
   contactEmail: "kebanks@wingsarena.com",
