@@ -207,7 +207,7 @@ export default function App() {
                 title={
                   loadingLeagueData
                     ? "Current League Standings (Loading...)"
-                    : "Current League Standings (EZLeagues)"
+                    : "Current League Standings"
                 }
                 rows={leagueData.standings}
               />
