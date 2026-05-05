@@ -12,7 +12,6 @@ import hero3 from "./assets/hero/hero-3.jpg";
 import hero4 from "./assets/hero/hero-4.jpg";
 
 import qrAB from "./assets/qr/qr-ab-league.jpg";
-import qrCD from "./assets/qr/qr-cd-league.jpg";
 // import springFlyer from "./assets/spring/spring-flyer.jpg";
 
 import {
@@ -26,8 +25,6 @@ import { fetchWaahlLeagueData } from "./utils/fetchWaahlLeagueData";
 const AB_REGISTRATION_URL =
   "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4013044";
 
-const CD_REGISTRATION_URL =
-  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4013045";
 
 function formatMoneyNoCents(n) {
   return n.toLocaleString(undefined, {
@@ -118,7 +115,7 @@ export default function App() {
       {
         src: hero3,
         kicker: "Summer 2026 Registration",
-        title: "A/B + C/D Leagues",
+        title: "A/B League",
         subtitle:
           "Register now for the May–July season. Individual free agents and full team entries welcome.",
       },
@@ -226,7 +223,7 @@ export default function App() {
               <SectionHeader
                 eyebrow={seasonMeta.springSeasonLabel}
                 title={`${seasonMeta.registrationHeadline}`}
-                subtitle="May–July 2026 summer season registration is now open for A/B and C/D divisions."
+                subtitle="May–July 2026 summer season registration is now open."
               />
             </div>
 
@@ -259,32 +256,6 @@ export default function App() {
                   </div>
                 </div>
               </div>
-
-              {/* Right column supporting info */}
-              <div className="qrPanel">
-                <div className="qrPanelHeader">
-                  <h3>Skill Levels</h3>
-                  <p>
-                    We welcome players of all abilities & skill-levels
-                  </p>
-                </div>
-
-                <div className="registrationNotes">
-                  <div className="registrationNoteCard">
-                    <p className="registrationNoteTitle">A/B League</p>
-                    <p className="registrationNoteText">
-                      Competitive division for higher-level, experienced players and teams.
-                    </p>
-                  </div>
-
-                  <div className="registrationNoteCard">
-                    <p className="registrationNoteTitle">C/D League</p>
-                    <p className="registrationNoteText">
-                      Great fit for recreational / developing players seeking more casual, yet still competitive play.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* QR section moved BELOW the two spring cards */}
@@ -296,9 +267,8 @@ export default function App() {
 
               <div className="springRegistrationCardsRow">
                 <div className="qrCard">
-                  <p className="qrTitle">A/B League</p>
-                  <img src={qrAB} alt="A/B League registration QR code" className="qrImg" />
-                  <p className="qrCaption">Scan or click below to register for A/B League</p>
+                  <img src={qrAB} alt="Registration QR code" className="qrImg" />
+                  <p className="qrCaption">Scan or click below to register</p>
                   <a
                     href={AB_REGISTRATION_URL}
                     target="_blank"
@@ -309,19 +279,6 @@ export default function App() {
                   </a>
                 </div>
 
-                <div className="qrCard">
-                  <p className="qrTitle">C/D League</p>
-                  <img src={qrCD} alt="C/D League registration QR code" className="qrImg" />
-                  <p className="qrCaption">Scan or click below to register for C/D League</p>
-                  <a
-                    href={CD_REGISTRATION_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="qrRegisterLink"
-                  >
-                    REGISTER HERE
-                  </a>
-                </div>
               </div>
             </div>
 
