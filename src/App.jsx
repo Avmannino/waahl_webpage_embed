@@ -11,7 +11,8 @@ import hero2 from "./assets/hero/hero-2.jpg";
 import hero3 from "./assets/hero/hero-3.jpg";
 import hero4 from "./assets/hero/hero-4.jpg";
 
-import qrAB from "./assets/qr/qr-ab-league.jpg";
+import qrAB from "./assets/qr/qr-ab-league.png";
+import qrCD from "./assets/qr/qr-cd-league.png";
 // import springFlyer from "./assets/spring/spring-flyer.jpg";
 
 import {
@@ -23,7 +24,10 @@ import {
 import { fetchWaahlLeagueData } from "./utils/fetchWaahlLeagueData";
 
 const AB_REGISTRATION_URL =
-  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4013044";
+  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4068938";
+
+const CD_REGISTRATION_URL =
+  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4068936";
 
 
 function formatMoneyNoCents(n) {
@@ -114,8 +118,8 @@ export default function App() {
       },
       {
         src: hero3,
-        kicker: "Summer 2026 Registration",
-        title: "A/B League",
+        kicker: "Fall/Winter 2026 Registration",
+        title: "A/B + C/D Leagues",
         subtitle:
           "Register now for the May–July season. Individual free agents and full team entries welcome.",
       },
@@ -161,7 +165,7 @@ export default function App() {
                 </button>
 
                 <div className="heroChip">
-                  <span className="heroChipLabel">Summer Registration is LIVE!</span>
+                  <span className="heroChipLabel">Fall/Winter Registration is LIVE!</span>
                   <span className="heroChipValue">Scroll Down For More</span>
                 </div>
               </div>
@@ -223,14 +227,14 @@ export default function App() {
               <SectionHeader
                 eyebrow={seasonMeta.springSeasonLabel}
                 title={`${seasonMeta.registrationHeadline}`}
-                subtitle="May–July 2026 summer season registration is now open."
+                subtitle="Fall/Winter 2026 registration is now open for A/B and C/D divisions."
               />
             </div>
 
             <div className="promoGrid">
               <div className="promoCard">
                 <div className="promoTop">
-                  <p className="promoBadge">WAAHL • Summer 2026 Registration</p>
+                  <p className="promoBadge">WAAHL • Fall/Winter 2026 Registration</p>
                   <h3>Where community meets competition</h3>
                   <p>
                     Join the next WAAHL season at Wings Arena. Register as an individual
@@ -261,14 +265,15 @@ export default function App() {
             {/* QR section moved BELOW the two spring cards */}
             <div className="springTopRegistrationCard">
               <div className="springTopRegistrationHead">
-                <h3>Summer 2026 Registration</h3>
+                <h3>Fall/Winter 2026 Registration</h3>
                 <p>Scan or click below to register.</p>
               </div>
 
               <div className="springRegistrationCardsRow">
                 <div className="qrCard">
-                  <img src={qrAB} alt="Registration QR code" className="qrImg" />
-                  <p className="qrCaption">Scan or click below to register</p>
+                  <p className="qrTitle">A/B League</p>
+                  <img src={qrAB} alt="A/B League registration QR code" className="qrImg" />
+                  <p className="qrCaption">Scan or click below to register for A/B League</p>
                   <a
                     href={AB_REGISTRATION_URL}
                     target="_blank"
@@ -279,6 +284,19 @@ export default function App() {
                   </a>
                 </div>
 
+                <div className="qrCard">
+                  <p className="qrTitle">C/D League</p>
+                  <img src={qrCD} alt="C/D League registration QR code" className="qrImg" />
+                  <p className="qrCaption">Scan or click below to register for C/D League</p>
+                  <a
+                    href={CD_REGISTRATION_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="qrRegisterLink"
+                  >
+                    REGISTER HERE
+                  </a>
+                </div>
               </div>
             </div>
 
