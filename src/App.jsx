@@ -348,14 +348,14 @@ export default function App() {
               <div className="guidelineSection">
                 <h3>Game Format</h3>
                 <ul>
-                  <li>3 x 15-minute running-time periods</li>
+                  <li>3 x 15-minute stop-time periods</li>
                 </ul>
               </div>
 
               <div className="guidelineSection">
                 <h3>Mercy Rule</h3>
                 <ul>
-                  <li>6+ goal lead → running time until reduced to 4 goals or fewer.</li>
+                  <li>6+ goal lead → running time until reduced to 4 goal lead.</li>
                 </ul>
               </div>
 
@@ -397,9 +397,9 @@ export default function App() {
               <div className="guidelineSection">
                 <h3>Tie Games</h3>
                 <ul>
-                  <li>Regular season: 3 on 3 5 minute overtime</li>
+                  <li>Regular season: 3-shooter shootout</li>
                   <li>Playoffs: 5-min 5v5 OT → 3-shooter shootout.</li>
-                  <li>Championships: 5-min 5v5, then 4v4, then 3v3, then 2v2, 1v1</li>
+                  <li>Championships: 5-min 5v5, then 4v4, then 3v3, then 2v2, then 1v1</li>
                 </ul>
               </div>
 
@@ -467,7 +467,7 @@ export default function App() {
               <div className="guidelineSection">
                 <h3>Minimum Roster to Play</h3>
                 <ul>
-                  <li>Game can start with 3 players.</li>
+                  <li>Game can start with 5 players.</li>
                   <li>
                     Teams may play without a goalie, but 6th skater cannot cover puck or act as goalie.
                   </li>
