@@ -8,6 +8,22 @@ function normalizeTeamName(name) {
   return TEAM_NAME_ALIASES[name] || name;
 }
 
+// EZLeagues source data occasionally has one-off typos in placeholder
+// playoff matchups (e.g. listing "Seed 2 v Seed 2" instead of "Seed 3").
+// Corrected here rather than upstream since we don't control that page.
+const SCHEDULE_FIXES = [
+  { date: "Thu-Dec 3", home: "Seed 2", away: "Seed 2", fixedAway: "Seed 3" },
+];
+
+function fixKnownScheduleTypos(rows) {
+  return rows.map((r) => {
+    const fix = SCHEDULE_FIXES.find(
+      (f) => f.date === r.date && f.home === r.home && f.away === r.away
+    );
+    return fix ? { ...r, away: fix.fixedAway } : r;
+  });
+}
+
 function cleanText(str = "") {
   return String(str)
     .replace(/\u00a0/g, " ")
@@ -410,6 +426,7 @@ export function parseEzLeaguesPageHtml(htmlString) {
     home: normalizeTeamName(r.home),
     away: normalizeTeamName(r.away),
   }));
+  schedule = fixKnownScheduleTypos(schedule);
 
   return {
     standings,

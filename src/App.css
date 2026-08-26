@@ -440,11 +440,28 @@ a:hover {
   max-width: 70ch;
 }
 
+.sectionHeaderCenterSpaced {
+  margin-bottom: 48px;
+}
+
 /* TABLES */
-.standingsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+.divisionBlock {
+  margin-bottom: 64px;
+}
+
+.divisionBlock:last-child {
+  margin-bottom: 0;
+}
+
+.divisionHeading {
+  margin: 0 0 18px;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-align: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--stroke);
 }
 
 .scheduleWrap {
@@ -1021,10 +1038,6 @@ a:hover {
 }
 
 @media (max-width: 900px) {
-  .standingsGrid {
-    grid-template-columns: 1fr;
-  }
-
   .heroSubtitle {
     max-width: 52ch;
   }
@@ -1190,18 +1203,18 @@ a:hover {
   }
 
   /* Standings-specific tighter spacing */
-  .standingsGrid .statsTable {
+  .divisionBlock > .tableCard .statsTable {
     min-width: 520px;
   }
 
-  .standingsGrid .statsTable th:first-child,
-  .standingsGrid .statsTable td:first-child {
+  .divisionBlock > .tableCard .statsTable th:first-child,
+  .divisionBlock > .tableCard .statsTable td:first-child {
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  .standingsGrid .statsTable th:nth-child(2),
-  .standingsGrid .statsTable td:nth-child(2) {
+  .divisionBlock > .tableCard .statsTable th:nth-child(2),
+  .divisionBlock > .tableCard .statsTable td:nth-child(2) {
     padding-left: 7px;
     padding-right: 7px;
   }

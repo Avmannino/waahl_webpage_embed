@@ -15,11 +15,7 @@ import qrAB from "./assets/qr/qr-ab-league.png";
 import qrCD from "./assets/qr/qr-cd-league.png";
 // import springFlyer from "./assets/spring/spring-flyer.jpg";
 
-import {
-  seasonMeta,
-  fallbackStandings,
-  fallbackSchedule,
-} from "./data/waahlData";
+import { seasonMeta, fallbackDivision } from "./data/waahlData";
 
 import { fetchWaahlLeagueData } from "./utils/fetchWaahlLeagueData";
 
@@ -41,8 +37,8 @@ function formatMoneyNoCents(n) {
 
 export default function App() {
   const [leagueData, setLeagueData] = useState({
-    standings: fallbackStandings,
-    schedule: fallbackSchedule,
+    premier: fallbackDivision,
+    legends: fallbackDivision,
     parsedAt: null,
   });
   const [loadingLeagueData, setLoadingLeagueData] = useState(true);
@@ -61,8 +57,8 @@ export default function App() {
         if (cancelled) return;
 
         setLeagueData({
-          standings: parsed.standings || [],
-          schedule: parsed.schedule || [],
+          premier: parsed.premier || fallbackDivision,
+          legends: parsed.legends || fallbackDivision,
           parsedAt: parsed.parsedAt || null,
         });
       } catch (err) {
@@ -183,7 +179,7 @@ export default function App() {
         {/* CURRENT SEASON */}
         <section className="section sectionCurrent" id="current-season">
           <div className="container">
-            <div className="sectionHeaderCenter">
+            <div className="sectionHeaderCenter sectionHeaderCenterSpaced">
               <SectionHeader
                 eyebrow={seasonMeta.currentSeasonLabel}
                 title={`Standings & Schedule • ${seasonMeta.currentSeasonSubLabel}`}
@@ -203,19 +199,30 @@ export default function App() {
               </div>
             ) : null}
 
-            <div className="standingsGrid" style={{ gridTemplateColumns: "1fr" }}>
+            <div className="divisionBlock">
+              <h3 className="divisionHeading">Premier Division</h3>
+
               <StandingsTable
-                title={
-                  loadingLeagueData
-                    ? "Current League Standings (Loading...)"
-                    : "Current League Standings"
-                }
-                rows={leagueData.standings}
+                title={loadingLeagueData ? "Standings (Loading...)" : "Standings"}
+                rows={leagueData.premier.standings}
               />
+
+              <div className="scheduleWrap">
+                <ScheduleTable title="Schedule" rows={leagueData.premier.schedule} />
+              </div>
             </div>
 
-            <div className="scheduleWrap">
-              <ScheduleTable rows={leagueData.schedule} />
+            <div className="divisionBlock">
+              <h3 className="divisionHeading">Legends Division</h3>
+
+              <StandingsTable
+                title={loadingLeagueData ? "Standings (Loading...)" : "Standings"}
+                rows={leagueData.legends.standings}
+              />
+
+              <div className="scheduleWrap">
+                <ScheduleTable title="Schedule" rows={leagueData.legends.schedule} />
+              </div>
             </div>
           </div>
         </section>

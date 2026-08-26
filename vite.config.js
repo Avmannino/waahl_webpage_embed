@@ -6,14 +6,24 @@ export default defineConfig({
   base: "/waahl_webpage_embed/",
   server: {
     proxy: {
-      "/api/ezleagues": {
+      "/api/ezleagues-premier": {
         target: "https://wingsarena.ezleagues.ezfacility.com",
         changeOrigin: true,
         secure: true,
         rewrite: (path) =>
           path.replace(
-            /^\/api\/ezleagues/,
-            "/leagues/477108/SpringSummer-2026-Wings-Arena-Adult-Hockey-League.aspx"
+            /^\/api\/ezleagues-premier/,
+            "/leagues/479627/Fall--Winter-2026-AB.aspx"
+          ),
+      },
+      "/api/ezleagues-legends": {
+        target: "https://wingsarena.ezleagues.ezfacility.com",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) =>
+          path.replace(
+            /^\/api\/ezleagues-legends/,
+            "/leagues/479649/Fall--Winter-2026-Legends-League.aspx"
           ),
       },
     },

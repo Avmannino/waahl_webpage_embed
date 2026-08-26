@@ -2,7 +2,7 @@
 
 export const seasonMeta = {
   currentSeasonLabel: "Current Season",
-  currentSeasonSubLabel: "Summer 2026 (May-July)",
+  currentSeasonSubLabel: "Fall/Winter 2026",
   springSeasonLabel: "Fall/Winter 2026 Registration",
   springSeasonDates: "Fall/Winter 2026",
   registrationHeadline: "Register Now for Fall/Winter 2026!",
@@ -12,5 +12,4 @@ export const seasonMeta = {
 };
 
 // Optional fallback data if fetch fails
-export const fallbackStandings = [];
-export const fallbackSchedule = [];
+export const fallbackDivision = { standings: [], schedule: [] };

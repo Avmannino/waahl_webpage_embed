@@ -1,24 +1,27 @@
 import { parseEzLeaguesPageHtml } from "./parseEzLeaguesPage";
 
-const EZLEAGUES_URL =
-  "https://wingsarena.ezleagues.ezfacility.com/leagues/477108/SpringSummer-2026-Wings-Arena-Adult-Hockey-League.aspx";
+const PREMIER_URL =
+  "https://wingsarena.ezleagues.ezfacility.com/leagues/479627/Fall--Winter-2026-AB.aspx";
+
+const LEGENDS_URL =
+  "https://wingsarena.ezleagues.ezfacility.com/leagues/479649/Fall--Winter-2026-Legends-League.aspx";
 
 export async function fetchWaahlLeagueData() {
   const configuredProxy = import.meta.env.VITE_EZLEAGUES_PROXY_URL?.trim();
   const isDev = import.meta.env.DEV;
 
   if (configuredProxy) {
-    return fetchAndParse(configuredProxy, { expectProxyJson: true });
+    return fetchAndParseViaProxy(configuredProxy);
   }
 
   if (isDev) {
-    return fetchAndParse("/api/ezleagues", { expectProxyJson: false });
+    return fetchAndParseDirect("/api/ezleagues-premier", "/api/ezleagues-legends");
   }
 
-  return fetchAndParse(EZLEAGUES_URL, { expectProxyJson: false });
+  return fetchAndParseDirect(PREMIER_URL, LEGENDS_URL);
 }
 
-async function fetchAndParse(url, { expectProxyJson = false } = {}) {
+async function fetchText(url) {
   const res = await fetch(url, {
     method: "GET",
     cache: "no-store",
@@ -29,38 +32,55 @@ async function fetchAndParse(url, { expectProxyJson = false } = {}) {
     throw new Error(`Fetch failed (${res.status}) for ${url}`);
   }
 
-  const contentType = (res.headers.get("content-type") || "").toLowerCase();
-  const rawText = await res.text();
+  const text = await res.text();
 
-  if (!rawText) {
+  if (!text) {
     throw new Error(`Empty response received from ${url}`);
   }
 
-  let html = "";
-
-  // If we expect JSON (Apps Script proxy), parse it safely
-  if (expectProxyJson) {
-    try {
-      const json = JSON.parse(rawText);
-      html = json.html || "";
-
-      if (!html) {
-        throw new Error("Proxy JSON did not include an 'html' field.");
-      }
-    } catch (err) {
-      // Helpful debugging message when Google returns an HTML page instead of JSON
-      const preview = rawText.slice(0, 180).replace(/\s+/g, " ");
-      throw new Error(
-        `Proxy did not return JSON. Received ${contentType || "unknown content-type"} instead. ` +
-          `Response starts with: ${preview}`
-      );
-    }
-  } else {
-    // Non-proxy response (Vite proxy / direct)
-    html = rawText;
-  }
-
-  return parseEzLeaguesPageHtml(html);
+  return text;
 }
 
-export { EZLEAGUES_URL };
+async function fetchAndParseDirect(premierUrl, legendsUrl) {
+  const [premierHtml, legendsHtml] = await Promise.all([
+    fetchText(premierUrl),
+    fetchText(legendsUrl),
+  ]);
+
+  return buildResult(premierHtml, legendsHtml);
+}
+
+async function fetchAndParseViaProxy(proxyUrl) {
+  const rawText = await fetchText(proxyUrl);
+
+  let json;
+  try {
+    json = JSON.parse(rawText);
+  } catch {
+    const preview = rawText.slice(0, 180).replace(/\s+/g, " ");
+    throw new Error(
+      `Proxy did not return JSON. Response starts with: ${preview}`
+    );
+  }
+
+  const premierHtml = json.premier?.html || "";
+  const legendsHtml = json.legends?.html || "";
+
+  if (!premierHtml || !legendsHtml) {
+    throw new Error(
+      "Proxy JSON did not include the expected 'premier'/'legends' html fields."
+    );
+  }
+
+  return buildResult(premierHtml, legendsHtml);
+}
+
+function buildResult(premierHtml, legendsHtml) {
+  return {
+    premier: parseEzLeaguesPageHtml(premierHtml),
+    legends: parseEzLeaguesPageHtml(legendsHtml),
+    parsedAt: new Date().toISOString(),
+  };
+}
+
+export { PREMIER_URL, LEGENDS_URL };

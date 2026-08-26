@@ -61,7 +61,7 @@ function formatScheduleDateMobile(dateStr = "") {
   return `${month}/${day}`;
 }
 
-export default function ScheduleTable({ rows = [] }) {
+export default function ScheduleTable({ title = "Upcoming / League Schedule", rows = [] }) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function ScheduleTable({ rows = [] }) {
   return (
     <div className="tableCard">
       <div className="tableCardHead">
-        <h3>Upcoming / League Schedule</h3>
+        <h3>{title}</h3>
       </div>
 
       <div ref={scrollRef} className="tableWrap tableWrapScheduleLimited">
