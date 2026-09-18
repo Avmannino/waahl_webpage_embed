@@ -23,7 +23,7 @@ export default defineConfig({
         rewrite: (path) =>
           path.replace(
             /^\/api\/ezleagues-legends/,
-            "/leagues/479649/Fall--Winter-2026-Legends-League.aspx"
+            "/leagues/480515/(Copy)-Fall--Winter-2026-Legends-League.aspx"
           ),
       },
     },

@@ -1,7 +1,7 @@
 function doGet() {
   var sources = {
     premier: "https://wingsarena.ezleagues.ezfacility.com/leagues/479627/Fall--Winter-2026-AB.aspx",
-    legends: "https://wingsarena.ezleagues.ezfacility.com/leagues/479649/Fall--Winter-2026-Legends-League.aspx"
+    legends: "https://wingsarena.ezleagues.ezfacility.com/leagues/480515/(Copy)-Fall--Winter-2026-Legends-League.aspx"
   };
 
   var result = {

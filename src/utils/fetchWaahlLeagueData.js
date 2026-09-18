@@ -4,7 +4,7 @@ const PREMIER_URL =
   "https://wingsarena.ezleagues.ezfacility.com/leagues/479627/Fall--Winter-2026-AB.aspx";
 
 const LEGENDS_URL =
-  "https://wingsarena.ezleagues.ezfacility.com/leagues/479649/Fall--Winter-2026-Legends-League.aspx";
+  "https://wingsarena.ezleagues.ezfacility.com/leagues/480515/(Copy)-Fall--Winter-2026-Legends-League.aspx";
 
 export async function fetchWaahlLeagueData() {
   const configuredProxy = import.meta.env.VITE_EZLEAGUES_PROXY_URL?.trim();
