@@ -96,11 +96,56 @@ function isPlayoffRow(row) {
   );
 }
 
-function applyPremierPlayoffOverride(division) {
+// Folded team's forfeit games are hidden from the Premier schedule.
+const FORFEIT_TEAM = /\bfold\b/i;
+
+// Correct home/away for games the EZLeagues page lists reversed. Rows already
+// in this orientation are left alone, so this is safe if the page gets fixed.
+const PREMIER_HOME_AWAY = [
+  { date: "Tue-Sep 29", home: "AQR", away: "Steak Tips" },
+  { date: "Wed-Sep 30", home: "Rockies", away: "The Whalers" },
+  { date: "Sun-Oct 4", home: "The Whalers", away: "AQR" },
+  { date: "Tue-Oct 6", home: "Nature Boys", away: "The Whalers" },
+  { date: "Wed-Oct 7", home: "AQR", away: "Rockies" },
+  { date: "Wed-Oct 14", home: "Steak Tips", away: "AQR" },
+  { date: "Wed-Oct 21", home: "Rockies", away: "AQR" },
+  { date: "Tue-Oct 27", home: "Nature Boys", away: "Rockies" },
+  { date: "Tue-Nov 10", home: "AQR", away: "The Whalers" },
+  { date: "Wed-Nov 11", home: "Nature Boys", away: "Steak Tips" },
+  { date: "Sun-Nov 15", home: "The Whalers", away: "Nature Boys" },
+  { date: "Tue-Nov 17", home: "The Whalers", away: "Rockies" },
+  { date: "Sun-Nov 22", home: "Rockies", away: "AQR" },
+];
+
+function swapScore(score) {
+  const m = score.match(/^(\d+) - (\d+)(.*)$/);
+  return m ? `${m[2]} - ${m[1]}${m[3]}` : score;
+}
+
+function fixHomeAway(row) {
+  const fix = PREMIER_HOME_AWAY.find(
+    (f) => f.date === row.date && f.home === row.away && f.away === row.home
+  );
+  if (!fix) return row;
+
+  const score = swapScore(row.score);
+  return {
+    ...row,
+    home: row.away,
+    away: row.home,
+    score,
+    status: row.score ? row.status.replace(row.score, score) : row.status,
+  };
+}
+
+function applyPremierScheduleOverrides(division) {
   return {
     ...division,
     schedule: [
-      ...division.schedule.filter((row) => !isPlayoffRow(row)),
+      ...division.schedule
+        .filter((row) => !isPlayoffRow(row))
+        .filter((row) => !FORFEIT_TEAM.test(row.home) && !FORFEIT_TEAM.test(row.away))
+        .map(fixHomeAway),
       ...PREMIER_PLAYOFF_SCHEDULE,
     ],
   };
@@ -108,7 +153,7 @@ function applyPremierPlayoffOverride(division) {
 
 function buildResult(premierHtml, legendsHtml) {
   return {
-    premier: applyPremierPlayoffOverride(parseEzLeaguesPageHtml(premierHtml)),
+    premier: applyPremierScheduleOverrides(parseEzLeaguesPageHtml(premierHtml)),
     legends: parseEzLeaguesPageHtml(legendsHtml),
     parsedAt: new Date().toISOString(),
   };
