@@ -75,9 +75,40 @@ async function fetchAndParseViaProxy(proxyUrl) {
   return buildResult(premierHtml, legendsHtml);
 }
 
+// The Premier EZLeagues page has incorrect playoff dates/times/matchups, so
+// its playoff rows are replaced with this manually maintained bracket.
+// Remove once the EZLeagues page is corrected.
+const PREMIER_PLAYOFF_SCHEDULE = [
+  { date: "Tue-Dec 1", time: "10:00 PM", home: "Seed 4", away: "Seed 5", gameType: "Play-in Playoff" },
+  { date: "Tue-Dec 8", time: "10:00 PM", home: "Seed 2", away: "Seed 3", gameType: "Playoff" },
+  { date: "Wed-Dec 9", time: "9:45 PM", home: "Seed 1", away: "Winner Seed 4/5", gameType: "Playoff" },
+  { date: "Tue-Dec 15", time: "10:00 PM", home: "Semifinal Winner", away: "Semifinal Winner", gameType: "Playoff" },
+  { date: "Sat-Dec 19", time: "8:30 PM", home: "Final", away: "Final", gameType: "Playoff" },
+].map((g) => ({ ...g, rink: "Wings Arena", status: "Scheduled", score: "" }));
+
+const PLAYOFF_PLACEHOLDER_TEAM = /\b(seed|finals?|winner)\b/i;
+
+function isPlayoffRow(row) {
+  return (
+    /postseason|playoff/i.test(row.gameType) ||
+    PLAYOFF_PLACEHOLDER_TEAM.test(row.home) ||
+    PLAYOFF_PLACEHOLDER_TEAM.test(row.away)
+  );
+}
+
+function applyPremierPlayoffOverride(division) {
+  return {
+    ...division,
+    schedule: [
+      ...division.schedule.filter((row) => !isPlayoffRow(row)),
+      ...PREMIER_PLAYOFF_SCHEDULE,
+    ],
+  };
+}
+
 function buildResult(premierHtml, legendsHtml) {
   return {
-    premier: parseEzLeaguesPageHtml(premierHtml),
+    premier: applyPremierPlayoffOverride(parseEzLeaguesPageHtml(premierHtml)),
     legends: parseEzLeaguesPageHtml(legendsHtml),
     parsedAt: new Date().toISOString(),
   };
