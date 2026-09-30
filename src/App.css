@@ -1263,24 +1263,28 @@ a:hover {
     line-height: 1.2;
   }
 
+  /* Abbreviated weekday column (mobile only) */
+  .scheduleWrap .scheduleTable .scheduleDayCol {
+    padding-right: 0;
+    width: 34px;
+    min-width: 34px;
+  }
+
   /* Tighten spacing between Time and Matchup columns (mobile only) */
-  .scheduleWrap .scheduleTable th:nth-child(2),
-  .scheduleWrap .scheduleTable td:nth-child(2) {
+  .scheduleWrap .scheduleTable .scheduleTimeCol {
     padding-right: 0;
     width: 56px;
     min-width: 56px;
   }
 
-  .scheduleWrap .scheduleTable th:nth-child(3),
-  .scheduleWrap .scheduleTable td:nth-child(3) {
+  .scheduleWrap .scheduleTable .scheduleMatchupCol {
     padding-left: 0;
     padding-right: 2px;
     /* reduce gap before Type */
   }
 
   /* Decrease gap between Matchup and Type columns */
-  .scheduleWrap .scheduleTable th:nth-child(4),
-  .scheduleWrap .scheduleTable td:nth-child(4) {
+  .scheduleWrap .scheduleTable .scheduleTypeCol {
     padding-left: 2px;
     width: 52px;
     min-width: 52px;
@@ -1499,14 +1503,12 @@ a:hover {
     min-width: 118px;
   }
 
-  .scheduleWrap .scheduleTable th:nth-child(2),
-  .scheduleWrap .scheduleTable td:nth-child(2) {
+  .scheduleWrap .scheduleTable .scheduleTimeCol {
     width: 52px;
     min-width: 52px;
   }
 
-  .scheduleWrap .scheduleTable th:nth-child(4),
-  .scheduleWrap .scheduleTable td:nth-child(4) {
+  .scheduleWrap .scheduleTable .scheduleTypeCol {
     width: 48px;
     min-width: 48px;
     padding-left: 1px;

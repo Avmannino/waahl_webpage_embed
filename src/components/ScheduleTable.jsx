@@ -101,24 +101,28 @@ export default function ScheduleTable({ title = "Upcoming / League Schedule", ro
         <table className="statsTable scheduleTable">
           <thead>
             <tr>
+              {isMobile ? <th className="scheduleDayCol">Day</th> : null}
               <th>Date</th>
-              <th>Time</th>
-              <th>Matchup</th>
+              <th className="scheduleTimeCol">Time</th>
+              <th className="scheduleMatchupCol">Matchup</th>
               {!isMobile ? <th>Rink</th> : null}
-              <th>Type</th>
+              <th className="scheduleTypeCol">Type</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {rows.length === 0 ? (
               <tr>
-                <td colSpan={isMobile ? 5 : 6} style={{ textAlign: "center", opacity: 0.8 }}>
+                <td colSpan={6} style={{ textAlign: "center", opacity: 0.8 }}>
                   No schedule available yet.
                 </td>
               </tr>
             ) : (
               rows.map((row, idx) => (
                 <tr key={`${row.date}-${row.time}-${row.home}-${row.away}-${idx}`}>
+                  {isMobile ? (
+                    <td className="scheduleDayCol">{String(row.date).split("-")[0]}</td>
+                  ) : null}
                   <td>
                     <span className="scheduleDateDesktop">
                       {formatScheduleDateDesktop(row.date)}
@@ -127,12 +131,12 @@ export default function ScheduleTable({ title = "Upcoming / League Schedule", ro
                       {formatScheduleDateMobile(row.date)}
                     </span>
                   </td>
-                  <td>{row.time}</td>
-                  <td className="matchupCell">
+                  <td className="scheduleTimeCol">{row.time}</td>
+                  <td className="matchupCell scheduleMatchupCol">
                     {row.home} <span className="vs">vs</span> {row.away}
                   </td>
                   {!isMobile ? <td>{row.rink || "Wings Arena"}</td> : null}
-                  <td>{row.gameType || "-"}</td>
+                  <td className="scheduleTypeCol">{row.gameType || "-"}</td>
                   <td>{row.status || "Scheduled"}</td>
                 </tr>
               ))
