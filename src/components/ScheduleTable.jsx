@@ -64,12 +64,26 @@ function formatScheduleDateMobile(dateStr = "") {
 export default function ScheduleTable({ title = "Upcoming / League Schedule", rows = [] }) {
   const scrollRef = useRef(null);
 
+  // Scroll so the next unplayed game sits at the top, just under the sticky
+  // header. Falls back to the bottom once every game has been played.
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
+    const nextIdx = rows.findIndex(
+      (row) => !/^(complete|result pending)/i.test(row.status || "")
+    );
+
     requestAnimationFrame(() => {
-      el.scrollTop = el.scrollHeight;
+      const nextRow = nextIdx === -1 ? null : el.querySelectorAll("tbody tr")[nextIdx];
+      if (!nextRow) {
+        el.scrollTop = el.scrollHeight;
+        return;
+      }
+
+      const headerHeight = el.querySelector("thead")?.offsetHeight || 0;
+      el.scrollTop +=
+        nextRow.getBoundingClientRect().top - el.getBoundingClientRect().top - headerHeight;
     });
   }, [rows]);
 
