@@ -264,9 +264,11 @@ function parseScheduleFromTableRows(allTables) {
         if (/result pending/i.test(timeRaw)) {
           status = "Result Pending";
         } else if (/complete/i.test(timeRaw)) {
-          const scoreMatch = timeRaw.match(/(\d+)\s*-\s*(\d+)(?:\s+OT)?/i);
+          // The score sits in the unlabeled column between Home and Away.
+          const scoreRaw = cleanText(cells[colIdx.home + 1] || "");
+          const scoreMatch = scoreRaw.match(/(\d+)\s*-\s*(\d+)(?:\s+OT)?/i);
           if (scoreMatch) {
-            score = `${scoreMatch[1]} - ${scoreMatch[2]}${/OT/i.test(timeRaw) ? " OT" : ""}`;
+            score = `${scoreMatch[1]} - ${scoreMatch[2]}${/OT/i.test(scoreRaw) ? " OT" : ""}`;
             status = `Complete (${score})`;
           } else {
             status = "Complete";

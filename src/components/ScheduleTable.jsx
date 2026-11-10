@@ -137,7 +137,7 @@ export default function ScheduleTable({ title = "Upcoming / League Schedule", ro
                   </td>
                   {!isMobile ? <td>{row.rink || "Wings Arena"}</td> : null}
                   <td className="scheduleTypeCol">{row.gameType || "-"}</td>
-                  <td>{row.status || "Scheduled"}</td>
+                  <td>{row.score || row.status || "Scheduled"}</td>
                 </tr>
               ))
             )}
