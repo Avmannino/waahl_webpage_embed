@@ -209,6 +209,49 @@ a:hover {
   color: var(--muted-2);
 }
 
+/* Registration chip: solid Wings red so it stands out next to League Info.
+   Doubled class beats the mobile .heroChip background overrides. */
+.heroChip.heroChipRegister {
+  background: #d60036;
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(214, 0, 54, 0.35);
+}
+
+.heroChip.heroChipRegister:hover {
+  background: #e8003b;
+  border-color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  box-shadow: 0 14px 34px rgba(214, 0, 54, 0.45);
+}
+
+.heroChipRegister .heroChipLabel,
+.heroChipRegister .heroChipHint {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.heroChipArrow {
+  display: inline-block;
+  animation: heroChipArrowBounce 1.4s ease-in-out infinite;
+}
+
+@keyframes heroChipArrowBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroChipArrow {
+    animation: none;
+  }
+}
+
 .heroCarouselCol {
   justify-self: end;
   width: 100%;
@@ -412,11 +455,29 @@ a:hover {
 
 .sectionCurrent {
   padding-top: 20px;
+  padding-bottom: 64px;
 }
 
 .sectionSpring {
-  padding-top: 12px;
+  padding-top: 44px;
   padding-bottom: 44px;
+  background: #d60036;
+  border-top: 4px solid #ffffff;
+}
+
+/* Text sitting directly on the red band */
+.sectionSpring .sectionEyebrow,
+.sectionSpring .sectionSubtitle {
+  color: #ffffff;
+}
+
+/* Cards keep a dark base so their text and red accents stay readable on the red band */
+.sectionSpring .promoCard,
+.sectionSpring .springTopRegistrationCard,
+.sectionSpring .springNeedHelpCard {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.02)),
+    var(--bg);
 }
 
 .sectionHeader {

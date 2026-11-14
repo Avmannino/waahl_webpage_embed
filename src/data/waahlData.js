@@ -3,9 +3,9 @@
 export const seasonMeta = {
   currentSeasonLabel: "Current Season",
   currentSeasonSubLabel: "Fall/Winter 2026",
-  springSeasonLabel: "Fall/Winter 2026 Registration",
-  springSeasonDates: "Fall/Winter 2026",
-  registrationHeadline: "Register Now for Fall/Winter 2026!",
+  springSeasonLabel: "Winter/Spring 2027 Registration",
+  springSeasonDates: "Winter/Spring 2027",
+  registrationHeadline: "Register Now for Winter/Spring 2027!",
   freeAgentPrice: 295,
   fullTeamPrice: 4300,
   contactEmail: "kebanks@wingsarena.com",

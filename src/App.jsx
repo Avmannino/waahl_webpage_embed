@@ -20,10 +20,10 @@ import { seasonMeta, fallbackDivision } from "./data/waahlData";
 import { fetchWaahlLeagueData } from "./utils/fetchWaahlLeagueData";
 
 const AB_REGISTRATION_URL =
-  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4068938";
+  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4142914";
 
 const CD_REGISTRATION_URL =
-  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4068936";
+  "https://tms.ezfacility.com/OnlineRegistrations/Register.aspx?CompanyID=8390&GroupID=4142911";
 
 
 function formatMoneyNoCents(n) {
@@ -114,10 +114,10 @@ export default function App() {
       },
       {
         src: hero3,
-        kicker: "Fall/Winter 2026 Registration",
+        kicker: "Winter/Spring 2027 Registration",
         title: "A/B + C/D Leagues",
         subtitle:
-          "Register now for the May–July season. Individual free agents and full team entries welcome.",
+          "Register now for the January–March season. Individual free agents and full team entries welcome.",
       },
       {
         src: hero4,
@@ -160,10 +160,23 @@ export default function App() {
                   <span className="heroChipHint">Click to view rules</span>
                 </button>
 
-                <div className="heroChip">
-                  <span className="heroChipLabel">Fall/Winter Registration is LIVE!</span>
-                  <span className="heroChipValue">Scroll Down For More</span>
-                </div>
+                <a
+                  href="#spring-season"
+                  className="heroChip heroChipButton heroChipRegister"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("spring-season")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                >
+                  <span className="heroChipLabel">Winter/Spring Registration is LIVE!</span>
+                  <span className="heroChipValue">
+                    Register Below{" "}
+                    <span className="heroChipArrow" aria-hidden="true">↓</span>
+                  </span>
+                  <span className="heroChipHint">Click to jump to registration</span>
+                </a>
               </div>
             </div>
 
@@ -234,14 +247,14 @@ export default function App() {
               <SectionHeader
                 eyebrow={seasonMeta.springSeasonLabel}
                 title={`${seasonMeta.registrationHeadline}`}
-                subtitle="Fall/Winter 2026 registration is now open for A/B and C/D divisions."
+                subtitle="Winter/Spring 2027 registration is now open for A/B and C/D divisions."
               />
             </div>
 
             <div className="promoGrid">
               <div className="promoCard">
                 <div className="promoTop">
-                  <p className="promoBadge">WAAHL • Fall/Winter 2026 Registration</p>
+                  <p className="promoBadge">WAAHL • Winter/Spring 2027 Registration</p>
                   <h3>Where community meets competition</h3>
                   <p>
                     Join the next WAAHL season at Wings Arena. Register as an individual
@@ -255,7 +268,6 @@ export default function App() {
                     <p className="priceValue">
                       {formatMoneyNoCents(seasonMeta.freeAgentPrice)}
                     </p>
-                    <p className="priceNote">Jersey included</p>
                   </div>
 
                   <div className="priceCard">
@@ -272,7 +284,7 @@ export default function App() {
             {/* QR section moved BELOW the two spring cards */}
             <div className="springTopRegistrationCard">
               <div className="springTopRegistrationHead">
-                <h3>Fall/Winter 2026 Registration</h3>
+                <h3>Winter/Spring 2027 Registration</h3>
                 <p>Scan or click below to register.</p>
               </div>
 
