@@ -254,7 +254,6 @@ export default function App() {
             <div className="promoGrid">
               <div className="promoCard">
                 <div className="promoTop">
-                  <p className="promoBadge">WAAHL • Winter/Spring 2027 Registration</p>
                   <h3>Where community meets competition</h3>
                   <p>
                     Join the next WAAHL season at Wings Arena. Register as an individual
