@@ -27,8 +27,15 @@ function parseScheduleDateString(dateStr = "") {
 
   if (monthIndex == null || Number.isNaN(day)) return null;
 
-  // Fixed year used only for formatting output (year is not displayed)
-  return new Date(2026, monthIndex, day);
+  // EZLeagues omits the year, and seasons cross New Year. Use the year nearest
+  // today whose weekday matches the one EZLeagues lists (e.g. Tue-Jan 5 → 2027).
+  const weekdayIndex = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(match[1]);
+  const thisYear = new Date().getFullYear();
+  const candidates = [thisYear, thisYear + 1, thisYear - 1]
+    .map((year) => new Date(year, monthIndex, day))
+    .filter((d) => d.getDay() === weekdayIndex);
+
+  return candidates[0] || new Date(thisYear, monthIndex, day);
 }
 
 function getOrdinal(day) {
